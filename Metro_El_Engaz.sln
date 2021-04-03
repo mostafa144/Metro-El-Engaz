@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metro_El_Engaz", "Metro_El_Engaz\Metro_El_Engaz.csproj", "{29A71980-68F8-406C-B3B1-9F2CC01074DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29A71980-68F8-406C-B3B1-9F2CC01074DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29A71980-68F8-406C-B3B1-9F2CC01074DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29A71980-68F8-406C-B3B1-9F2CC01074DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29A71980-68F8-406C-B3B1-9F2CC01074DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E3B5FC5E-CDDB-4630-A4FE-1A0AF4F06C01}
+	EndGlobalSection
+EndGlobal
