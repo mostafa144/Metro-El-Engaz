@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="End_Station">
+    <Key>
+      <PropertyRef Name="St_ID" />
+    </Key>
+    <Property Name="St_ID" Type="Int32" Nullable="false" />
+    <Property Name="St_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SSN" Type="Int32" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_End_Station_Users" FromRole="End_Station" ToRole="Users" />
+    <NavigationProperty Name="Stations" Relationship="Self.FK_Stations_End_Station" FromRole="End_Station" ToRole="Stations" />
+  </EntityType>
+  <EntityType Name="Payments">
+    <Key>
+      <PropertyRef Name="Pay_ID" />
+    </Key>
+    <Property Name="Pay_ID" Type="Int32" Nullable="false" />
+    <Property Name="Total_Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Online_Payment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SSN" Type="Int32" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Payments_Users" FromRole="Payments" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Registrations">
+    <Key>
+      <PropertyRef Name="Reg_ID" />
+    </Key>
+    <Property Name="Reg_ID" Type="Int32" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SSN" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Registrations_Users" FromRole="Registrations" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Start_Station">
+    <Key>
+      <PropertyRef Name="St_ID" />
+    </Key>
+    <Property Name="St_ID" Type="Int32" Nullable="false" />
+    <Property Name="St_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SSN" Type="Int32" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Start_Station_Users" FromRole="Start_Station" ToRole="Users" />
+    <NavigationProperty Name="Stations" Relationship="Self.FK_Stations_Start_Station" FromRole="Start_Station" ToRole="Stations" />
+  </EntityType>
+  <EntityType Name="Stations">
+    <Key>
+      <PropertyRef Name="St_ID" />
+    </Key>
+    <Property Name="St_ID" Type="Int32" Nullable="false" />
+    <Property Name="St_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="End_Station" Relationship="Self.FK_Stations_End_Station" FromRole="Stations" ToRole="End_Station" />
+    <NavigationProperty Name="Start_Station" Relationship="Self.FK_Stations_Start_Station" FromRole="Stations" ToRole="Start_Station" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Tickets">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Num_of_Stations" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Destination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SSN" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Tickets_Users" FromRole="Tickets" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="SSN" />
+    </Key>
+    <Property Name="SSN" Type="Int32" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="End_Station" Relationship="Self.FK_End_Station_Users" FromRole="Users" ToRole="End_Station" />
+    <NavigationProperty Name="Payments" Relationship="Self.FK_Payments_Users" FromRole="Users" ToRole="Payments" />
+    <NavigationProperty Name="Registrations" Relationship="Self.FK_Registrations_Users" FromRole="Users" ToRole="Registrations" />
+    <NavigationProperty Name="Start_Station" Relationship="Self.FK_Start_Station_Users" FromRole="Users" ToRole="Start_Station" />
+    <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_Users" FromRole="Users" ToRole="Tickets" />
+  </EntityType>
+  <Association Name="FK_End_Station_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="End_Station" Type="Self.End_Station" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="SSN" />
+      </Principal>
+      <Dependent Role="End_Station">
+        <PropertyRef Name="SSN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Stations_End_Station">
+    <End Role="End_Station" Type="Self.End_Station" Multiplicity="1" />
+    <End Role="Stations" Type="Self.Stations" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="End_Station">
+        <PropertyRef Name="St_ID" />
+      </Principal>
+      <Dependent Role="Stations">
+        <PropertyRef Name="St_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="SSN" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="SSN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Registrations_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Registrations" Type="Self.Registrations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="SSN" />
+      </Principal>
+      <Dependent Role="Registrations">
+        <PropertyRef Name="SSN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Start_Station_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Start_Station" Type="Self.Start_Station" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="SSN" />
+      </Principal>
+      <Dependent Role="Start_Station">
+        <PropertyRef Name="SSN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Stations_Start_Station">
+    <End Role="Start_Station" Type="Self.Start_Station" Multiplicity="1" />
+    <End Role="Stations" Type="Self.Stations" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Start_Station">
+        <PropertyRef Name="St_ID" />
+      </Principal>
+      <Dependent Role="Stations">
+        <PropertyRef Name="St_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tickets_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="SSN" />
+      </Principal>
+      <Dependent Role="Tickets">
+        <PropertyRef Name="SSN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="End_Station" EntityType="Self.End_Station" />
+    <EntitySet Name="Payments" EntityType="Self.Payments" />
+    <EntitySet Name="Registrations" EntityType="Self.Registrations" />
+    <EntitySet Name="Start_Station" EntityType="Self.Start_Station" />
+    <EntitySet Name="Stations" EntityType="Self.Stations" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Tickets" EntityType="Self.Tickets" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK_End_Station_Users" Association="Self.FK_End_Station_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="End_Station" EntitySet="End_Station" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Stations_End_Station" Association="Self.FK_Stations_End_Station">
+      <End Role="End_Station" EntitySet="End_Station" />
+      <End Role="Stations" EntitySet="Stations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Users" Association="Self.FK_Payments_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Registrations_Users" Association="Self.FK_Registrations_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Registrations" EntitySet="Registrations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Start_Station_Users" Association="Self.FK_Start_Station_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Start_Station" EntitySet="Start_Station" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Stations_Start_Station" Association="Self.FK_Stations_Start_Station">
+      <End Role="Start_Station" EntitySet="Start_Station" />
+      <End Role="Stations" EntitySet="Stations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tickets_Users" Association="Self.FK_Tickets_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Tickets" EntitySet="Tickets" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
