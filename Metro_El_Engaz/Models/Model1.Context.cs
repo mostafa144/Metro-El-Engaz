@@ -13,10 +13,10 @@ namespace Metro_El_Engaz.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class Entities1 : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public Entities1()
+            : base("name=Entities1")
         {
         }
     
@@ -25,6 +25,13 @@ namespace Metro_El_Engaz.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tbl_Login> tbl_Login { get; set; }
+        public virtual DbSet<End_Station> End_Station { get; set; }
+        public virtual DbSet<Payments> Payments { get; set; }
+        public virtual DbSet<Registrations> Registrations { get; set; }
+        public virtual DbSet<Start_Station> Start_Station { get; set; }
+        public virtual DbSet<Stations> Stations { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Tickets> Tickets { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
     }
 }
